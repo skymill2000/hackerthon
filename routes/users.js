@@ -40,6 +40,7 @@ router.post('/join', (req, res) => {
 
 router.post('/login', (req, res) => {
   const {email, password} = req.body;
+  console.log(email, password);
   let checkUser = "SELECT * FROM user WHERE user_email = ?"
   if(email == ''){
     res.json(common.successMsg(2, '아이디가 없습니다'))
