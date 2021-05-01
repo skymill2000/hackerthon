@@ -1,9 +1,6 @@
 const axios = require('axios');
-const config = require('../../config/apiConfig.json');
+const config = require('../config/apiConfig.json');
 const apikey = config.APIKEY;
-const testId = "그저그런녀석";
-
-console.log(apikey);
 
 const getSummonerData = async (username) =>{
     let option = {
@@ -15,7 +12,7 @@ const getSummonerData = async (username) =>{
         }
     }
     let userData = await axios(option);
-    return userData.data.puuid;
+    return userData.data;
 }
 
 const getMatchV5 = async (puuid, start, count) =>{
@@ -45,16 +42,22 @@ const getMatchDetail = async (matchId) => {
     const matchDetail = await axios(option);
     return matchDetail;
 }
+const getChampionData = () =>{
+    axios.get('http://ddragon.leagueoflegends.com/cdn/11.9.1/data/en_US/champion.json').then((res)=>{
+        console.log(JSON.stringify(res.data.data));
+    })
+}
 
 const getUserMatchData = async (name) =>{
     try {
+        let returnList = [];
         const userPuuid = await getSummonerData(name);
-        const matchList = await getMatchV5(userPuuid,0,100);
+        const matchList = await getMatchV5(userPuuid,0,10);
         for (const match of matchList) {
             const matchDetail = await getMatchDetail(match);
-            console.log(matchDetail);
+            returnList.push(matchDetail);
         }
-        return matchDetail.data;
+        return returnList;
     }
     catch (e) {
         console.error(e);
@@ -64,5 +67,6 @@ const getUserMatchData = async (name) =>{
 
 
 module.exports = {
-    getUserMatch : getUserMatchData
+    getUserMatch : getUserMatchData,
+    getChampionData : getChampionData
 }

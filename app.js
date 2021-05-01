@@ -8,10 +8,10 @@ var middleAuth = require('./lib/auth');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let mainRouter = require('./routes/main');
-
+let cors = require('cors');
 var app = express();
 app.set('jwt-secret', "N1u2l3l4a5n6s7w8e9r0K!O@R#N");
-
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

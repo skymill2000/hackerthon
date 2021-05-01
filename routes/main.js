@@ -52,7 +52,8 @@ router.post('/missions', auth, async (req, res) => {
     }
     try {
         const todayMission = await mission_db.todaysMission(userId);
-        res.json(todayMission)
+        resultObj.todayMission = todayMission;
+        res.json(resultObj)
     }
     catch (e) {
         console.error(e);
