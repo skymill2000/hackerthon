@@ -73,6 +73,7 @@ router.post('/points', auth, async (req, res) => {
         const pointSummary = await point_db.pointSum(userId);
         resultObj.pointSumary = pointSummary;
         resultObj.pointList = pointList;
+        console.log(resultObj);
         res.json(resultObj)
     }
     catch (e) {
