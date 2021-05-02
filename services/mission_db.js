@@ -15,7 +15,7 @@ const missionList = async (userId) => {
 
 const todaysMission = async (userId) => {
     try {
-        const rows = await db.query('SELECT * FROM user_today_mission utm JOIN mission m ON utm.mission_id = m.id WHERE utm.user_id = ? AND utm.mission_date = DATE_FORMAT(CURDATE(), \'%Y-%m-%d\')', [userId]);
+        const rows = await db.query('SELECT * FROM user_today_mission utm JOIN mission m ON utm.mission_id = m.id WHERE utm.user_id = ?', [userId]);
         console.log(rows);
         return rows;
     }

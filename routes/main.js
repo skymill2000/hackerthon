@@ -47,6 +47,7 @@ router.post('/main',auth, async (req, res) => {
 
 router.post('/missions', auth, async (req, res) => {
     let userId = req.decoded.userId;
+    let missionId = req.body.missionId;
     let resultObj = {
         todayMission : undefined,
     }
