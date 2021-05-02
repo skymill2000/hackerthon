@@ -1,7 +1,7 @@
 const axios = require('axios');
 const config = require('../config/apiConfig.json');
 const apikey = config.APIKEY;
-
+let puuid = "";
 const getSummonerData = async (username) =>{
     let option = {
         method : 'GET',
@@ -12,6 +12,8 @@ const getSummonerData = async (username) =>{
         }
     }
     let userData = await axios(option);
+    puuid = userData.data.puuid;
+    console.error(puuid);
     return userData.data;
 }
 
@@ -51,8 +53,8 @@ const getChampionData = () =>{
 const getUserMatchData = async (name) =>{
     try {
         let returnList = [];
-        const userPuuid = await getSummonerData(name);
-        const matchList = await getMatchV5(userPuuid,0,10);
+        const user = await getSummonerData(name);
+        const matchList = await getMatchV5(user.puuid,0,10);
         for (const match of matchList) {
             const matchDetail = await getMatchDetail(match);
             returnList.push(matchDetail);
@@ -64,7 +66,9 @@ const getUserMatchData = async (name) =>{
     }
 };
 
+const missionCheck = (game) => {
 
+}
 
 module.exports = {
     getUserMatch : getUserMatchData,
