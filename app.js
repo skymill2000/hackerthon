@@ -8,6 +8,7 @@ var middleAuth = require('./lib/auth');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 let mainRouter = require('./routes/main');
+let apiRouter = require('./routes/wooriApi');
 let cors = require('cors');
 var app = express();
 app.set('jwt-secret', "N1u2l3l4a5n6s7w8e9r0K!O@R#N");
@@ -29,5 +30,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/main', mainRouter);
+app.use('/api', apiRouter);
 
 module.exports = app;

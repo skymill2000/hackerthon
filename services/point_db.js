@@ -13,6 +13,19 @@ const pointList = async (userId) => {
     }
 }
 
+const pointSum = async (userId) => {
+    try {
+        let sql = "SELECT point_datetime, SUM(point_point) FROM point WHERE user_id = ? GROUP BY point_datetime"
+        const rows = await db.query(sql,[]);
+        return rows;
+    }
+    catch (e) {
+        console.error(e)
+        throw e;
+    }
+}
+
 module.exports = {
-    pointList
+    pointList,
+    pointSum
 }
